@@ -7,7 +7,7 @@
       "location" : "https://github.com/vsmbd/swift-core.git",
       "state" : {
         "branch" : "main",
-        "revision" : "24cc5dcd6e8fc6292aa395df64ba759860c79525"
+        "revision" : "e5091d9943bcc2e17738e324921e60984d2ebc6d"
       }
     },
     {
@@ -16,7 +16,7 @@
       "location" : "https://github.com/vsmbd/swift-eventdispatch.git",
       "state" : {
         "branch" : "main",
-        "revision" : "3ee2c6f1473ed3dd889157a0bf90c2e36feea2cd"
+        "revision" : "20484f9639fc40788d9944f8c5511abc3af7d689"
       }
     }
   ],
