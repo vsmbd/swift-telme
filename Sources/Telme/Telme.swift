@@ -277,7 +277,7 @@ public final class Telme: @unchecked Sendable,
 
 			let record = TelmeRecord(
 				recordId: recordId,
-				event: AnyEvent(event),
+				event: event,
 				eventInfo: info
 			)
 			consoleSink.sink(record)
