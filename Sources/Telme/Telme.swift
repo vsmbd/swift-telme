@@ -136,6 +136,39 @@ public final class Telme: @unchecked Sendable,
 		)
 	}
 
+	private func measuredBlockEventSink(_ event: MeasuredBlockEvent) -> Void {
+		let timestamp = MonotonicNanostamp.now
+
+		switch event {
+		case .created(_, let checkpoint, _):
+			sink(
+				event: event,
+				info: .init(
+					timestamp: timestamp,
+					checkpoint: checkpoint
+				)
+			)
+
+		case .started(_, let checkpoint, _):
+			sink(
+				event: event,
+				info: .init(
+					timestamp: timestamp,
+					checkpoint: checkpoint
+				)
+			)
+
+		case .completed(_, let checkpoint, _):
+			sink(
+				event: event,
+				info: .init(
+					timestamp: timestamp,
+					checkpoint: checkpoint
+				)
+			)
+		}
+	}
+
 	// MARK: + Default scope
 
 	// MARK: + Public scope
@@ -171,6 +204,7 @@ public final class Telme: @unchecked Sendable,
 	) {
 		Checkpoint.setEventSink(checkpointEventSink(_:))
 		TaskQueue.setEventSink(taskQueueEventSink(_:))
+		MeasuredBlock<Any>.setEventSink(measuredBlockEventSink(_:))
 
 		EventDispatch.default.setGlobalSink(
 			self,

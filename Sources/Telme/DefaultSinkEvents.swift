@@ -38,3 +38,20 @@ extension TaskQueue.TaskQueueEvent: @retroactive Event {
 		}
 	}
 }
+
+// MARK: MeasuredBlock events
+
+extension MeasuredBlockEvent: @retroactive Event {
+	public var kind: String {
+		switch self {
+		case .created:
+			typeName + "_created"
+
+		case .started:
+			typeName + "_started"
+
+		case .completed:
+			typeName + "_completed"
+		}
+	}
+}
