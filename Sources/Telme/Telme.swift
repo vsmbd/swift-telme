@@ -12,7 +12,7 @@ import EventDispatch
 // MARK: - Telme
 
 public protocol TelmeRecordSink: Sendable {
-	func sink(_ record: TelmeRecord)
+	func sink(_ records: [TelmeRecord])
 }
 
 /// Lightweight observability pipeline that ingests, normalizes, and exports
@@ -48,14 +48,12 @@ public final class Telme: @unchecked Sendable,
 	private func flushBufferedRecords() {
 		guard records.isEmpty == false else { return }
 
-		let batch = records
+		let batchedRecords = records
 		records = []
 		lastFlushTime = DispatchTime.now()
 
-		for record in batch {
-			for sink in recordSinks {
-				sink.sink(record)
-			}
+		for recordSink in recordSinks {
+			recordSink.sink(batchedRecords)
 		}
 	}
 
@@ -280,7 +278,7 @@ public final class Telme: @unchecked Sendable,
 				event: event,
 				eventInfo: info
 			)
-			consoleSink.sink(record)
+			consoleSink.sink([record])
 			records.append(record)
 		}
 	}

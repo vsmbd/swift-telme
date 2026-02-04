@@ -27,18 +27,20 @@ public final class ConsoleRecordSink: TelmeRecordSink {
 		//
 	}
 
-	public func sink(_ record: TelmeRecord) {
-		do {
-			let data = try encoder.encode(record)
+	public func sink(_ records: [TelmeRecord]) {
+		for record in records {
+			do {
+				let data = try encoder.encode(record)
 
-			if let json = String(
-				data: data,
-				encoding: .utf8
-			) {
-				print(json)
+				if let json = String(
+					data: data,
+					encoding: .utf8
+				) {
+					print(json)
+				}
+			} catch {
+				print(record)
 			}
-		} catch {
-			print(record)
 		}
 	}
 }
