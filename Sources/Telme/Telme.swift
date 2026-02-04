@@ -42,7 +42,7 @@ public final class Telme: @unchecked Sendable,
 	private var flushPaused: Bool = false
 
 	private init() {
-		//
+		identifier = Self.nextID
 	}
 
 	private func flushBufferedRecords() {
@@ -158,6 +158,8 @@ public final class Telme: @unchecked Sendable,
 
 	/// The default, app-wide Telme instance.
 	public static let `default`: Telme = .init()
+
+	public let identifier: UInt64
 
 	/// Configures buffering and periodic flush.
 	/// Schedules a recurring check on the queue.
