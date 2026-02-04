@@ -194,6 +194,8 @@ public final class Telme: @unchecked Sendable,
 
 	public let identifier: UInt64
 
+	public let consoleSink: ConsoleRecordSink = .init()
+
 	/// Configures buffering and periodic flush.
 	/// Schedules a recurring check on the queue.
 	/// Flush runs when buffered count reaches the limit or flushInterval has passed since last flush.
@@ -272,13 +274,14 @@ public final class Telme: @unchecked Sendable,
 			guard let self else { return }
 
 			recordId += 1
-			records.append(
-				.init(
-					recordId: recordId,
-					event: AnyEvent(event),
-					eventInfo: info
-				)
+
+			let record = TelmeRecord(
+				recordId: recordId,
+				event: AnyEvent(event),
+				eventInfo: info
 			)
+			consoleSink.sink(record)
+			records.append(record)
 		}
 	}
 }
