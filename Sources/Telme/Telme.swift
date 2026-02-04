@@ -200,7 +200,8 @@ public final class Telme: @unchecked Sendable,
 	/// Call once at bootstrap; subsequent calls are ignored.
 	public func setup(
 		_ checkpoint: Checkpoint,
-		flushConfig: FlushConfig = .init()
+		flushConfig: FlushConfig = .init(),
+		sinks: [TelmeRecordSink] = []
 	) {
 		Checkpoint.setEventSink(checkpointEventSink(_:))
 		TaskQueue.setEventSink(taskQueueEventSink(_:))
@@ -215,6 +216,7 @@ public final class Telme: @unchecked Sendable,
 			guard let self,
 				  self.flushConfig == nil else { return }
 
+			self.recordSinks = sinks
 			self.flushConfig = flushConfig
 			lastFlushTime = DispatchTime.now()
 
