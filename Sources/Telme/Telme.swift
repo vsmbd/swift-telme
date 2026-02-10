@@ -74,8 +74,6 @@ public final class Telme: @unchecked Sendable,
 		if maxCountExceeded || flushIntervalExceeded {
 			flushBufferedRecords()
 		}
-
-		scheduleFlushCheck()
 	}
 
 	private func scheduleFlushCheck() {
